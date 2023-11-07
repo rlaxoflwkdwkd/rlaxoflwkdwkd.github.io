@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>두피빡빡 홈페이지</title>
+    <style>
+        .interface-container {
+            display: flex;
+            flex-direction: column; /* 세로로 배치하도록 변경 */
+        }
+        .interface {
+            flex: 1;
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Integrated Gradio Interfaces</h1>
+    <div class="interface-container">
+        <div class="interface">
+            <import gradio as gr
+import keras
+import numpy as np
+from PIL import Image, ImageOps
+
+# 사용자 정의 함수
+def greet(img):
+    data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
+    image = Image.fromarray(img).convert("RGB")
+    size = (224, 224)
+    image = ImageOps.fit(image, size, Image.ANTIALIAS)
+    image_array = np.asarray(image)
+    normalized_image_array = (image_array.astype(np.float32) / 127.5) - 1
+    data[0] = normalized_image_array
+    prediction = model.predict(data)
+    index = np.argmax(prediction)
+    return class_names[index]
+
+# 모델 및 클래스명 정의
+model = keras.models.load_model('keras_model.h5')
+class_names = ['탈모성 두피', '건조성 두피(미세각질)', '지성두피(피지과다)', '홍반성 두피(모낭홍반농포)', '정상 두피']
+
+# Gradio 인터페이스 생성
+iface = gr.Interface(
+    fn=greet,
+    inputs=gr.Image(),
+    outputs=gr.Textbox(),
+    title="두피빡빡",
+    description="촬영한 두피 사진을 업로드하세요."
+)
+
+
+# 웹 앱 실행
+iface.launch(share=True)>
+            <iframe src="https://d8e8d1d120c8bc58ab.gradio.live" width="100%" height="500"></iframe>
+        </div>
+    </div>
+</body>
+</html>
