@@ -131,7 +131,7 @@
 
         // ChatGPT API 요청
         async function fetchAIResponse(prompt) {
-            const apiKey = process.env.REACT_APP_OPENAI_API;  // API 키 보안 강화 필요
+            const apiKey = ${{secrets.OPENAI_API}};  // API 키 보안 강화 필요
             const apiEndpoint = 'https://api.openai.com/v1/chat/completions';
 
             // 두피 분석 전문가 컨텍스트 추가
