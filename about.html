@@ -129,10 +129,24 @@
 
 
 
-        // ChatGPT API 요청
-        async function fetchAIResponse(prompt) {
-            const apiKey = ${{secrets.OPENAI_API}};  // API 키 보안 강화 필요
-            const apiEndpoint = 'https://api.openai.com/v1/chat/completions';
+       // ChatGPT API 요청을 서버에 보내는 함수
+    async function fetchAIResponse(prompt) {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: prompt })
+    };
+
+    try {
+        const response = await fetch('/api/chat-response', requestOptions);
+        const data = await response.json();
+        return data.message;
+    } catch (error) {
+        console.error('서버 요청 중 오류 발생:', error);
+        return '서버 요청 중 오류 발생';
+    }
+}
+
 
             // 두피 분석 전문가 컨텍스트 추가
             const expertContext = "As a virtual expert in scalp health and hair care, ";
