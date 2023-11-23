@@ -129,24 +129,31 @@
 
 
 
-      // ChatGPT API 요청을 서버에 보내는 함수
-async function fetchAIResponse(prompt) {
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: prompt })
-    };
+    // API 키를 환경 변수에서 불러오기
+const apiKey = process.env.OPENAI_API; // OPENAI_API_KEY는 깃허브 환경 변수 이름입니다.
 
-    try {
-        // API 서버의 엔드포인트 URL을 사용
-        const response = await fetch('https://rlaxoflwkdwkd/rlaxoflwkdwkd.github.io/env.yml', requestOptions);
-        const data = await response.json();
-        return data.message;
-    } catch (error) {
-        console.error('서버 요청 중 오류 발생:', error);
-        return '서버 요청 중 오류 발생';
-    }
-}
+// API 호출을 위한 요청 객체 생성
+const requestOptions = {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+    },
+    body: JSON.stringify({
+        // API 요청 내용
+    }),
+};
+
+// API 호출
+fetch('https://api.example.com', requestOptions)
+    .then(response => response.json())
+    .then(data => {
+        // API 응답 처리
+    })
+    .catch(error => {
+        console.error('API 호출 중 오류 발생:', error);
+    });
+
 
 
             // 두피 분석 전문가 컨텍스트 추가
