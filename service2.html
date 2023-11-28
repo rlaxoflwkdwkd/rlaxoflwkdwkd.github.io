@@ -226,6 +226,39 @@
             document.getElementById('startButton').addEventListener('click', init);
         });
     </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Teachable Machine Image Model</h1>
+        <button type="button" id="startButton">Start</button>
+        <button type="button" id="stopButton">Stop</button> <!-- 멈춤 버튼 추가 -->
+        <button onclick="location.href='chatbot.html'">Go to Chatbot</button>
+        <div id="webcam-container"></div>
+        <div id="label-container"></div>
+    </div>
+
+    <script type="text/javascript">
+        // ... 기존 스크립트 코드 ...
+
+        let isPredicting = false;
+
+        async function startPredicting() {
+            isPredicting = true;
+            loop();
+        }
+
+        async function stopPredicting() {
+            isPredicting = false;
+            webcam.stop(); // 웹캠 중지
+        }
+
+        // ... 기존 init 함수 및 predict 함수 ...
+
+        window.addEventListener('load', function() {
+            document.getElementById('startButton').addEventListener('click', startPredicting);
+            document.getElementById('stopButton').addEventListener('click', stopPredicting);
+        });
+    </script>
 
     <!-- 챗봇 스크립트 -->
     <script>
