@@ -10,14 +10,16 @@
             padding: 0;
             font-size: 20px; /* 전체 글씨 크기 증가 */
         }
-         .main-container {
-            width: 80%;
-            margin: auto;
-            padding: 20px;
-            margin-bottom: 20px;
-            gap: 20px;
-        }
-
+.main-container {
+    display: flex; /* 플렉스 컨테이너로 설정하여 가로 배열 */
+    justify-content: center; /* 내부 요소들을 중앙 정렬 */
+    align-items: center; /* 세로 방향으로 중앙 정렬 */
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    margin-bottom: 20px;
+    gap: 20px; /* 섹션 사이의 간격 */
+}
         /* Teachable Machine과 챗봇 섹션에 적용할 스타일 */
      .teachable-machine, .chatbot {
         flex: 1; /* 가용 공간을 균등하게 분할 */
@@ -172,14 +174,17 @@
 <body>
     <div class="main-container"> <!-- Flex 컨테이너 -->
     <!-- Teachable Machine 섹션 -->
+    <div class="teachable-machine">
     <div class="container">
         <button type="button" id="startButton">Start</button>
         <button type="button" id="stopButton">Stop</button> <!-- 멈춤 버튼 추가 -->
         <div id="webcam-container"></div>
         <div id="label-container"></div>
     </div>
-
+</div>
+        
     <!-- 챗봇 섹션 -->
+    <div class="chatbot">
     <div id="chat-container">
         <div id="chat-messages"></div>
         <div id="user-input">
@@ -187,7 +192,8 @@
             <button>전송</button>
         </div>
     </div>
-
+</div>
+        
     <!-- Teachable Machine 스크립트 -->
     <script type="text/javascript">
         let model, webcam, labelContainer, maxPredictions;
