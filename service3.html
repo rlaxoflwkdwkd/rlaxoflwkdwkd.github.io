@@ -21,10 +21,21 @@
         }
 
         /* Teachable Machine과 챗봇 섹션에 적용할 스타일 */
-        .teachable-machine, .chatbot {
-            flex: 1; /* 가용 공간을 균등하게 분할 */
-            margin: 10px; /* 섹션 간 간격 조정 */
-        }
+.teachable-machine, .chatbot {
+    flex: 1; /* 가용 공간을 균등하게 분할 */
+    margin: 10px; /* 섹션 간 간격 조정 */
+    padding: 20px; /* 내부 패딩 추가 */
+}
+
+/* 추가적인 간격을 위해 각 섹션에 마진 추가 */
+.teachable-machine {
+    margin-right: 20px; /* 티처블 머신 오른쪽 마진 추가 */
+}
+
+.chatbot {
+    margin-left: 20px; /* 챗봇 왼쪽 마진 추가 */
+}
+
         h1 {
             font-size: 32px; /* 제목 글씨 크기 증가 */
             margin-bottom: 20px;
