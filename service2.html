@@ -161,7 +161,7 @@
     <div class="container">
         <h1>Scalp Care Machine and Chatbot</h1>
         <p>두피 분석 도구와 챗봇을 이용하여 자신의 두피를 확인하세요.</p> 
-        <button type="button" id="startButton">Start/Stop</button>
+        <button type="button" id="startButton">Start</button>
         <button type="button" id="stopButton">Stop</button> <!-- 멈춤 버튼 추가 -->
         <div id="webcam-container"></div>
         <div id="label-container"></div>
@@ -177,10 +177,6 @@
     </div>
 
     <!-- Teachable Machine 스크립트 -->
-    <script type="text/javascript">
-        // Teachable Machine 관련 JavaScript 코드
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.9.0/dist/tf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.5/dist/teachablemachine-image.min.js"></script>
     <script type="text/javascript">
         let model, webcam, labelContainer, maxPredictions;
 
@@ -205,13 +201,17 @@
             }
         }
 
-        async function loop() {
-            webcam.update(); // update the webcam frame
-            await predict();
+       async function loop() {
+            if (isPredicting) {
+                webcam.update(); // update the webcam frame
+                await predict();
+            }
             window.requestAnimationFrame(loop);
         }
 
+
         // run the webcam image through the image model
+        
         async function predict() {
             const prediction = await model.predict(webcam.canvas);
             for (let i = 0; i < maxPredictions; i++) {
@@ -221,28 +221,12 @@
             }
         }
 
-        // 페이지 로드 완료 후 init 함수를 버튼에 바인딩
-        window.addEventListener('load', function() {
-            document.getElementById('startButton').addEventListener('click', init);
-        });
-    </script>
-</head>
-<body>
-    <div class="container">
-        <h1>Teachable Machine Image Model</h1>
-        <button type="button" id="startButton">Start</button>
-        <button type="button" id="stopButton">Stop</button> <!-- 멈춤 버튼 추가 -->
-        <button onclick="location.href='chatbot.html'">Go to Chatbot</button>
-        <div id="webcam-container"></div>
-        <div id="label-container"></div>
-    </div>
-
-    <script type="text/javascript">
-        // ... 기존 스크립트 코드 ...
-
-        let isPredicting = false;
+       let isPredicting = false;
 
         async function startPredicting() {
+            if (!model) {
+                await init();
+            }
             isPredicting = true;
             loop();
         }
@@ -251,8 +235,6 @@
             isPredicting = false;
             webcam.stop(); // 웹캠 중지
         }
-
-        // ... 기존 init 함수 및 predict 함수 ...
 
         window.addEventListener('load', function() {
             document.getElementById('startButton').addEventListener('click', startPredicting);
